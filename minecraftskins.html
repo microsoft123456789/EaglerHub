@@ -29,7 +29,7 @@
           <button onclick="setAnimation('frontmanCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
           <button onclick="setAnimation('frontmanCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
         </div>
-        <a href="frontman.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
+        <a href="skins/frontman.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
       <!-- Radio Knight -->
@@ -42,7 +42,7 @@
           <button onclick="setAnimation('radioCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
           <button onclick="setAnimation('radioCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
         </div>
-        <a href="radioknight.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
+        <a href="skins/radioknight.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
       <!-- Guard Officer -->
@@ -55,7 +55,7 @@
           <button onclick="setAnimation('guardCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
           <button onclick="setAnimation('guardCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
         </div>
-        <a href="OGuard.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
+        <a href="skins/OGuard.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
       <!-- Gaming Creeper -->
@@ -68,7 +68,7 @@
           <button onclick="setAnimation('creeperCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
           <button onclick="setAnimation('creeperCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
         </div>
-        <a href="grcreeper.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
+        <a href="skins/grcreeper.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
       <!-- Dream Glowing Business Man -->
@@ -81,7 +81,7 @@
           <button onclick="setAnimation('dreamCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
           <button onclick="setAnimation('dreamCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
         </div>
-        <a href="glowinganylaticsplanner.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
+        <a href="skins/glowinganylaticsplanner.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
       <!-- Sea Beast -->
@@ -94,7 +94,7 @@
           <button onclick="setAnimation('seabeastCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
           <button onclick="setAnimation('seabeastCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
         </div>
-        <a href="seabeast.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
+        <a href="skins/seabeast.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
       <!-- Smooth Night -->
@@ -107,7 +107,7 @@
           <button onclick="setAnimation('smoothCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
           <button onclick="setAnimation('smoothCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
         </div>
-        <a href="smoothnight.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
+        <a href="skins/smoothnight.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
       <!-- Pink Guard -->
@@ -120,7 +120,7 @@
           <button onclick="setAnimation('pinkCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
           <button onclick="setAnimation('pinkCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
         </div>
-        <a href="pinkguard.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
+        <a href="skins/pinkguard.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
     </div>
@@ -130,7 +130,6 @@
     // Store viewers globally
     const viewers = {};
 
-    // Utility to set up a skin viewer
     function setupSkin(canvasId, skinFile) {
       const viewer = new skinview3d.SkinViewer({
         canvas: document.getElementById(canvasId),
@@ -142,40 +141,32 @@
       viewer.autoRotate = true;
 
       viewers[canvasId] = viewer;
-      setAnimation(canvasId, "idle"); // default animation
+      setAnimation(canvasId, "idle");
     }
 
-    // Switch animation
     function setAnimation(canvasId, anim) {
       const viewer = viewers[canvasId];
       if (!viewer) return;
-
-      // Reset
       viewer.animation = null;
-
       if (anim === "idle") {
         viewer.autoRotate = true;
       } else {
         viewer.autoRotate = false;
-        if (anim === "walk") {
-          viewer.animation = new skinview3d.WalkingAnimation();
-        } else if (anim === "run") {
-          viewer.animation = new skinview3d.RunningAnimation();
-        } else if (anim === "wave") {
-          viewer.animation = new skinview3d.WavingAnimation();
-        }
+        if (anim === "walk") viewer.animation = new skinview3d.WalkingAnimation();
+        if (anim === "run") viewer.animation = new skinview3d.RunningAnimation();
+        if (anim === "wave") viewer.animation = new skinview3d.WavingAnimation();
       }
     }
 
-    // Load skins
-    setupSkin("frontmanCanvas", "frontman.png");
-    setupSkin("radioCanvas", "radioknight.png");
-    setupSkin("guardCanvas", "OGuard.png");
-    setupSkin("creeperCanvas", "grcreeper.png");
-    setupSkin("dreamCanvas", "glowinganylaticsplanner.png");
-    setupSkin("seabeastCanvas", "seabeast.png");
-    setupSkin("smoothCanvas", "smoothnight.png");
-    setupSkin("pinkCanvas", "pinkguard.png");
+    // Load skins (skins/ folder)
+    setupSkin("frontmanCanvas", "skins/frontman.png");
+    setupSkin("radioCanvas", "skins/radioknight.png");
+    setupSkin("guardCanvas", "skins/OGuard.png");
+    setupSkin("creeperCanvas", "skins/grcreeper.png");
+    setupSkin("dreamCanvas", "skins/glowinganylaticsplanner.png");
+    setupSkin("seabeastCanvas", "skins/seabeast.png");
+    setupSkin("smoothCanvas", "skins/smoothnight.png");
+    setupSkin("pinkCanvas", "skins/pinkguard.png");
   </script>
 
 </body>
