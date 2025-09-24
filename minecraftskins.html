@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Minecraft Skins Gallery</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- skinview3d library -->
-  <script src="https://cdn.jsdelivr.net/npm/skinview3d/bundles/skinview3d.bundle.js"></script>
+  <style>
+    body {
+      background-color: #111827; /* gray-900 */
+    }
+  </style>
 </head>
-<body class="bg-gray-900 text-white font-sans">
-
-  <div class="min-h-screen p-8">
-    <!-- Title -->
-    <h1 class="text-5xl font-bold text-center text-green-400 mb-12 drop-shadow-lg">
+<body class="text-white font-sans">
+  <div class="min-h-screen flex flex-col items-center p-6">
+    
+    <!-- Page Heading -->
+    <h1 class="text-5xl font-bold mb-12 text-green-400 drop-shadow-lg">
       Minecraft Skins Gallery
     </h1>
 
-    <!-- Grid -->
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <!-- Skins Grid -->
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
 
       <!-- Frontman -->
       <div class="bg-gray-800 p-6 rounded-2xl shadow-lg text-center">
@@ -27,59 +30,59 @@
           <button onclick="setAnimation('frontmanCanvas','idle')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Idle</button>
           <button onclick="setAnimation('frontmanCanvas','walk')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Walk</button>
           <button onclick="setAnimation('frontmanCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
-          <button onclick="setAnimation('frontmanCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
+          <button onclick="setAnimation('frontmanCanvas','still')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Still</button>
         </div>
         <a href="skins/frontman.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
       <!-- Radio Knight -->
       <div class="bg-gray-800 p-6 rounded-2xl shadow-lg text-center">
-        <canvas id="radioCanvas" width="200" height="300" class="mx-auto mb-4"></canvas>
+        <canvas id="radioknightCanvas" width="200" height="300" class="mx-auto mb-4"></canvas>
         <h2 class="text-xl font-semibold mb-2">Radio Knight</h2>
         <div class="flex justify-center gap-2 mb-3">
-          <button onclick="setAnimation('radioCanvas','idle')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Idle</button>
-          <button onclick="setAnimation('radioCanvas','walk')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Walk</button>
-          <button onclick="setAnimation('radioCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
-          <button onclick="setAnimation('radioCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
+          <button onclick="setAnimation('radioknightCanvas','idle')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Idle</button>
+          <button onclick="setAnimation('radioknightCanvas','walk')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Walk</button>
+          <button onclick="setAnimation('radioknightCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
+          <button onclick="setAnimation('radioknightCanvas','still')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Still</button>
         </div>
         <a href="skins/radioknight.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
       <!-- Guard Officer -->
       <div class="bg-gray-800 p-6 rounded-2xl shadow-lg text-center">
-        <canvas id="guardCanvas" width="200" height="300" class="mx-auto mb-4"></canvas>
+        <canvas id="OGuardCanvas" width="200" height="300" class="mx-auto mb-4"></canvas>
         <h2 class="text-xl font-semibold mb-2">Guard Officer</h2>
         <div class="flex justify-center gap-2 mb-3">
-          <button onclick="setAnimation('guardCanvas','idle')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Idle</button>
-          <button onclick="setAnimation('guardCanvas','walk')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Walk</button>
-          <button onclick="setAnimation('guardCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
-          <button onclick="setAnimation('guardCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
+          <button onclick="setAnimation('OGuardCanvas','idle')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Idle</button>
+          <button onclick="setAnimation('OGuardCanvas','walk')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Walk</button>
+          <button onclick="setAnimation('OGuardCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
+          <button onclick="setAnimation('OGuardCanvas','still')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Still</button>
         </div>
         <a href="skins/OGuard.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
       <!-- Gaming Creeper -->
       <div class="bg-gray-800 p-6 rounded-2xl shadow-lg text-center">
-        <canvas id="creeperCanvas" width="200" height="300" class="mx-auto mb-4"></canvas>
+        <canvas id="grcreeperCanvas" width="200" height="300" class="mx-auto mb-4"></canvas>
         <h2 class="text-xl font-semibold mb-2">Gaming Creeper</h2>
         <div class="flex justify-center gap-2 mb-3">
-          <button onclick="setAnimation('creeperCanvas','idle')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Idle</button>
-          <button onclick="setAnimation('creeperCanvas','walk')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Walk</button>
-          <button onclick="setAnimation('creeperCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
-          <button onclick="setAnimation('creeperCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
+          <button onclick="setAnimation('grcreeperCanvas','idle')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Idle</button>
+          <button onclick="setAnimation('grcreeperCanvas','walk')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Walk</button>
+          <button onclick="setAnimation('grcreeperCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
+          <button onclick="setAnimation('grcreeperCanvas','still')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Still</button>
         </div>
         <a href="skins/grcreeper.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
       <!-- Dream Glowing Business Man -->
       <div class="bg-gray-800 p-6 rounded-2xl shadow-lg text-center">
-        <canvas id="dreamCanvas" width="200" height="300" class="mx-auto mb-4"></canvas>
+        <canvas id="glowingCanvas" width="200" height="300" class="mx-auto mb-4"></canvas>
         <h2 class="text-xl font-semibold mb-2">Dream Glowing Business Man</h2>
         <div class="flex justify-center gap-2 mb-3">
-          <button onclick="setAnimation('dreamCanvas','idle')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Idle</button>
-          <button onclick="setAnimation('dreamCanvas','walk')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Walk</button>
-          <button onclick="setAnimation('dreamCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
-          <button onclick="setAnimation('dreamCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
+          <button onclick="setAnimation('glowingCanvas','idle')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Idle</button>
+          <button onclick="setAnimation('glowingCanvas','walk')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Walk</button>
+          <button onclick="setAnimation('glowingCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
+          <button onclick="setAnimation('glowingCanvas','still')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Still</button>
         </div>
         <a href="skins/glowinganylaticsplanner.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
@@ -92,82 +95,51 @@
           <button onclick="setAnimation('seabeastCanvas','idle')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Idle</button>
           <button onclick="setAnimation('seabeastCanvas','walk')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Walk</button>
           <button onclick="setAnimation('seabeastCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
-          <button onclick="setAnimation('seabeastCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
+          <button onclick="setAnimation('seabeastCanvas','still')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Still</button>
         </div>
         <a href="skins/seabeast.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
       <!-- Smooth Night -->
       <div class="bg-gray-800 p-6 rounded-2xl shadow-lg text-center">
-        <canvas id="smoothCanvas" width="200" height="300" class="mx-auto mb-4"></canvas>
+        <canvas id="smoothnitCanvas" width="200" height="300" class="mx-auto mb-4"></canvas>
         <h2 class="text-xl font-semibold mb-2">Smooth Night</h2>
         <div class="flex justify-center gap-2 mb-3">
-          <button onclick="setAnimation('smoothCanvas','idle')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Idle</button>
-          <button onclick="setAnimation('smoothCanvas','walk')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Walk</button>
-          <button onclick="setAnimation('smoothCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
-          <button onclick="setAnimation('smoothCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
+          <button onclick="setAnimation('smoothnitCanvas','idle')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Idle</button>
+          <button onclick="setAnimation('smoothnitCanvas','walk')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Walk</button>
+          <button onclick="setAnimation('smoothnitCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
+          <button onclick="setAnimation('smoothnitCanvas','still')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Still</button>
         </div>
-        <a href="skins/smoothnight.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
+        <a href="skins/smoothnit.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
-      <!-- Pink Guard -->
+      <!-- Dreamer -->
       <div class="bg-gray-800 p-6 rounded-2xl shadow-lg text-center">
-        <canvas id="pinkCanvas" width="200" height="300" class="mx-auto mb-4"></canvas>
-        <h2 class="text-xl font-semibold mb-2">Pink Guard</h2>
+        <canvas id="dreamerCanvas" width="200" height="300" class="mx-auto mb-4"></canvas>
+        <h2 class="text-xl font-semibold mb-2">Dreamer</h2>
         <div class="flex justify-center gap-2 mb-3">
-          <button onclick="setAnimation('pinkCanvas','idle')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Idle</button>
-          <button onclick="setAnimation('pinkCanvas','walk')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Walk</button>
-          <button onclick="setAnimation('pinkCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
-          <button onclick="setAnimation('pinkCanvas','wave')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Wave</button>
+          <button onclick="setAnimation('dreamerCanvas','idle')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Idle</button>
+          <button onclick="setAnimation('dreamerCanvas','walk')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Walk</button>
+          <button onclick="setAnimation('dreamerCanvas','run')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Run</button>
+          <button onclick="setAnimation('dreamerCanvas','still')" class="bg-gray-700 px-2 py-1 rounded hover:bg-green-600">Still</button>
         </div>
-        <a href="skins/pinkguard.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
+        <a href="skins/dreamer.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
     </div>
   </div>
 
+  <!-- Placeholder JS -->
   <script>
-    // Store viewers globally
-    const viewers = {};
-
-    function setupSkin(canvasId, skinFile) {
-      const viewer = new skinview3d.SkinViewer({
-        canvas: document.getElementById(canvasId),
-        width: 200,
-        height: 300,
-        skin: skinFile
-      });
-      viewer.controls.enableZoom = true;
-      viewer.autoRotate = true;
-
-      viewers[canvasId] = viewer;
-      setAnimation(canvasId, "idle");
+    function setAnimation(canvasId, animation) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "lime";
+      ctx.font = "20px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText(animation.toUpperCase(), canvas.width/2, canvas.height/2);
     }
-
-    function setAnimation(canvasId, anim) {
-      const viewer = viewers[canvasId];
-      if (!viewer) return;
-      viewer.animation = null;
-      if (anim === "idle") {
-        viewer.autoRotate = true;
-      } else {
-        viewer.autoRotate = false;
-        if (anim === "walk") viewer.animation = new skinview3d.WalkingAnimation();
-        if (anim === "run") viewer.animation = new skinview3d.RunningAnimation();
-        if (anim === "wave") viewer.animation = new skinview3d.WavingAnimation();
-      }
-    }
-
-    // Load skins (skins/ folder)
-    setupSkin("frontmanCanvas", "skins/frontman.png");
-    setupSkin("radioCanvas", "skins/radioknight.png");
-    setupSkin("guardCanvas", "skins/OGuard.png");
-    setupSkin("creeperCanvas", "skins/grcreeper.png");
-    setupSkin("dreamCanvas", "skins/glowinganylaticsplanner.png");
-    setupSkin("seabeastCanvas", "skins/seabeast.png");
-    setupSkin("smoothCanvas", "skins/smoothnight.png");
-    setupSkin("pinkCanvas", "skins/pinkguard.png");
   </script>
-
 </body>
 </html>
