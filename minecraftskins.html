@@ -1,28 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Minecraft Skins Gallery</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      background-color: #111827; /* gray-900 */
-    }
+    body { background:#0f1724; } /* tailwind gray-900 look */
   </style>
-  <!-- Skinview3D -->
-  <script src="https://unpkg.com/skinview3d/bundle/skinview3d.bundle.js"></script>
 </head>
 <body class="text-white font-sans">
   <div class="min-h-screen flex flex-col items-center p-6">
-    
-    <!-- Page Heading -->
-    <h1 class="text-5xl font-bold mb-12 text-green-400 drop-shadow-lg">
-      Minecraft Skins Gallery
-    </h1>
+    <h1 class="text-5xl font-bold mb-6 text-green-400 drop-shadow-lg">Minecraft Skins Gallery</h1>
+    <p class="text-sm text-gray-300 mb-6">If a preview is blank, check console for errors or run a local web server (see note below).</p>
 
-    <!-- Skins Grid -->
-    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    <!-- Grid (your cards) -->
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-6xl">
 
       <!-- Frontman -->
       <div class="bg-gray-800 p-6 rounded-2xl shadow-lg text-center">
@@ -102,7 +95,7 @@
         <a href="skins/seabeast.png" download class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition">Download</a>
       </div>
 
-      <!-- Smooth Night -->
+      <!-- Smooth Night (smoothnit.png) -->
       <div class="bg-gray-800 p-6 rounded-2xl shadow-lg text-center">
         <canvas id="smoothnitCanvas" width="200" height="300" class="mx-auto mb-4"></canvas>
         <h2 class="text-xl font-semibold mb-2">Smooth Night</h2>
@@ -129,50 +122,136 @@
       </div>
 
     </div>
+
+    <p class="mt-8 text-xs text-gray-400">Note: if you open this file with the file:// protocol the models may not load due to browser security. Run a local server (example: <code>python -m http.server</code>) or host on GitHub Pages.</p>
   </div>
 
   <script>
-    // Store viewers globally
-    const viewers = {};
-
-    // Skins mapping
-    const skins = {
-      frontman: "skins/frontman.png",
-      radioknight: "skins/radioknight.png",
-      OGuard: "skins/OGuard.png",
-      grcreeper: "skins/grcreeper.png",
-      glowing: "skins/glowinganylaticsplanner.png",
-      seabeast: "skins/seabeast.png",
-      smoothnit: "skins/smoothnit.png",
-      dreamer: "skins/dreamer.png"
-    };
-
-    // Init all canvases
-    for (const key in skins) {
-      const canvas = document.getElementById(key + "Canvas");
-      if (canvas) {
-        const viewer = new skinview3d.SkinViewer({
-          canvas: canvas,
-          width: 200,
-          height: 300,
-          skin: skins[key]
-        });
-        viewer.controls.enableZoom = false;
-        viewer.autoRotate = true;
-        viewer.animation = new skinview3d.IdleAnimation();
-        viewers[key] = viewer;
-      }
+    // small helper to load script dynamically
+    function loadScript(src){
+      return new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = () => resolve();
+        s.onerror = (e) => reject(e);
+        document.head.appendChild(s);
+      });
     }
 
-    // Change animations
-    function setAnimation(name, anim) {
-      const viewer = viewers[name];
-      if (!viewer) return;
+    // test image exists (works for HTTP(s) paths)
+    function imageExists(url){
+      return new Promise(resolve => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+      });
+    }
+
+    // draw a simple placeholder in a canvas if skin missing
+    function drawPlaceholder(canvas, text){
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#1f2937'; // dark
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = '16px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(text, canvas.width/2, canvas.height/2);
+    }
+
+    (async function init(){
+      // try load skinview3d (jsdelivr latest)
+      try {
+        await loadScript('https://cdn.jsdelivr.net/npm/skinview3d@latest/bundles/skinview3d.bundle.js');
+      } catch(e){
+        console.error('Failed to load skinview3d from CDN', e);
+        // try unpkg fallback
+        try {
+          await loadScript('https://unpkg.com/skinview3d@latest/bundles/skinview3d.bundle.js');
+        } catch(err){
+          console.error('Failed to load skinview3d from fallback CDN', err);
+          // show placeholders on all canvases and abort
+          document.querySelectorAll('canvas').forEach(c => drawPlaceholder(c, '3D lib failed to load'));
+          return;
+        }
+      }
+
+      // map of keys -> skin file (in skins/ folder)
+      const skins = {
+        frontman: 'skins/frontman.png',
+        radioknight: 'skins/radioknight.png',
+        OGuard: 'skins/OGuard.png',
+        grcreeper: 'skins/grcreeper.png',
+        glowing: 'skins/glowinganylaticsplanner.png',
+        seabeast: 'skins/seabeast.png',
+        smoothnit: 'skins/smoothnit.png',
+        dreamer: 'skins/dreamer.png'
+      };
+
+      // viewers store
+      window.viewers = {};
+
+      // iterate and init viewers where possible
+      for (const key in skins){
+        const canvas = document.getElementById(key + 'Canvas');
+        if (!canvas){
+          console.warn('Canvas not found for', key);
+          continue;
+        }
+        const url = skins[key];
+
+        const ok = await imageExists(url);
+        if (!ok){
+          console.warn('Skin file not found or blocked by CORS:', url);
+          drawPlaceholder(canvas, 'Skin not found');
+          continue;
+        }
+
+        try {
+          const viewer = new skinview3d.SkinViewer({
+            canvas: canvas,
+            width: canvas.width,
+            height: canvas.height,
+            skin: url
+          });
+          viewer.controls.enableZoom = true;
+          viewer.autoRotate = true;
+          // try to set IdleAnimation if available, else rely on autoRotate
+          if (typeof skinview3d.IdleAnimation === 'function'){
+            viewer.animation = new skinview3d.IdleAnimation();
+          }
+          window.viewers[key] = viewer;
+        } catch(e){
+          console.error('Failed to init SkinViewer for', key, e);
+          drawPlaceholder(canvas, 'Viewer init error');
+        }
+      }
+    })();
+
+    // animation switcher used by buttons
+    function setAnimation(name, anim){
+      const viewer = window.viewers && window.viewers[name];
+      if (!viewer){
+        console.warn('No viewer for', name);
+        return;
+      }
+      // stop previous animation
+      viewer.animation = null;
       viewer.autoRotate = false;
-      if (anim === "idle") viewer.animation = new skinview3d.IdleAnimation();
-      if (anim === "walk") viewer.animation = new skinview3d.WalkingAnimation();
-      if (anim === "run") viewer.animation = new skinview3d.RunningAnimation();
-      if (anim === "still") viewer.animation = null;
+      if (anim === 'idle'){
+        viewer.autoRotate = true;
+        if (typeof skinview3d.IdleAnimation === 'function') viewer.animation = new skinview3d.IdleAnimation();
+      } else if (anim === 'walk' && typeof skinview3d.WalkingAnimation === 'function'){
+        viewer.animation = new skinview3d.WalkingAnimation();
+      } else if (anim === 'run' && typeof skinview3d.RunningAnimation === 'function'){
+        viewer.animation = new skinview3d.RunningAnimation();
+      } else if (anim === 'still'){
+        // do nothing — frozen (no animation, no autoRotate)
+      } else {
+        // unknown animation — fallback to idle rotate
+        viewer.autoRotate = true;
+      }
     }
   </script>
 </body>
